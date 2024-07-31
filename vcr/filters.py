@@ -113,7 +113,10 @@ def replace_post_data_parameters(request, replacements):
                 if sep is None:
                     new_splits.append((k, sep, ov))
                 else:
-                    rk = k.decode("utf-8")
+                    try:
+                        rk = k.decode("utf-8")
+                    except UnicodeDecodeError:
+                        rk = k
                     if rk not in replacements:
                         new_splits.append((k, sep, ov))
                     else:
